@@ -39,12 +39,18 @@ import { HomeInitialState, initialState } from './home.state';
 
 import { v4 as uuidv4 } from 'uuid';
 import { RAGMAN_API_KEY } from '@/utils/app/const';
+import { getServerSession, Session } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
+import { redirect } from 'next/navigation'
+
 
 interface Props {
+  session: Session
 }
 
-const Home = ({
-}: Props) => {
+const Home =   ({
+session}: Props) => {
+
   const { t } = useTranslation('chat');
   const { getAssistants } = useApiService();
   const { getAssistantsError } = useErrorService();
@@ -335,12 +341,11 @@ const Home = ({
           </div>
 
           <div className="flex h-full w-full pt-[48px] sm:pt-0">
-            <Chatbar />
+            <Chatbar session={session} />
 
             <div className="flex flex-1">
               <Chat stopConversationRef={stopConversationRef} />
             </div>
-
             <Promptbar />
           </div>
         </main>
@@ -350,10 +355,22 @@ const Home = ({
 };
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-
+export const getServerSideProps: GetServerSideProps = async ({ req, res, locale }) => {
+  
+  const session = await getServerSession(req,res,authOptions)
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }  
+  //console.log("session", session)
   return {
-    props: (await serverSideTranslations(locale ?? 'en', [
+    props: {
+      session,
+    ...(await serverSideTranslations(locale ?? 'en', [
         'common',
         'chat',
         'sidebar',
@@ -361,5 +378,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
         'promptbar',
         'settings',
       ]))
+    }
   };
 };

@@ -22,8 +22,13 @@ import ChatbarContext from './Chatbar.context';
 import { ChatbarInitialState, initialState } from './Chatbar.state';
 
 import { v4 as uuidv4 } from 'uuid';
+import { Session } from 'next-auth';
 
-export const Chatbar = () => {
+interface Props {
+  session : Session
+}
+
+export const Chatbar = ({session}:Props) => {
   const { t } = useTranslation('sidebar');
 
   const chatBarContextValue = useCreateReducer<ChatbarInitialState>({
@@ -184,7 +189,7 @@ export const Chatbar = () => {
         handleCreateItem={handleNewConversation}
         handleCreateFolder={() => handleCreateFolder(t('New folder'), 'chat')}
         handleDrop={handleDrop}
-        footerComponent={<ChatbarSettings />}
+        footerComponent={<ChatbarSettings session={session} />}
       />
     </ChatbarContext.Provider>
   );

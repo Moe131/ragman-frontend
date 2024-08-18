@@ -11,8 +11,13 @@ import { Key } from '../../Settings/Key';
 import { SidebarButton } from '../../Sidebar/SidebarButton';
 import ChatbarContext from '../Chatbar.context';
 import { ClearConversations } from './ClearConversations';
+import { Session } from 'next-auth';
+import Profile from '@/components/Profile';
 
-export const ChatbarSettings = () => {
+interface Props {
+  session : Session
+}
+export const ChatbarSettings = ({session}:Props) => {
   const { t } = useTranslation('sidebar');
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
 
@@ -47,7 +52,7 @@ export const ChatbarSettings = () => {
         icon={<IconSettings size={18} />}
         onClick={() => setIsSettingDialog(true)}
       />
-
+      <Profile session={session}/>
     </div>
   );
 };
