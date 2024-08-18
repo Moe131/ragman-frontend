@@ -5,7 +5,7 @@ const nextConfig = {
   i18n,
   reactStrictMode: true,
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: ['avatars.githubusercontent.com' , "lh3.googleusercontent.com"]
   },
   webpack(config, { isServer, dev }) {
     config.experiments = {

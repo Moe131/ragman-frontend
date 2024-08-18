@@ -1,5 +1,6 @@
 import React from "react";
 import GithubSigninButton from "@/components/Buttons/GithubSigninButton";
+import GoogleSigninButton from "@/components/Buttons/GoogleSigninButton";
 
 interface Props {
 }
@@ -16,9 +17,21 @@ const Login =  ({
                         Sign in to your account
                     </h1>
                     <GithubSigninButton />
+                    <GoogleSigninButton />
                 </div>
+                <div className="px-3 pb-3 text-center text-[12px] text-black/50 dark:text-white/50 md:px-4 md:pb-6">
+                    Powered by { <a
+                        href="https://github.com/Mondego/ragman-frontend"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline"
+                    >
+                        RAGMan
+                    </a>
+                    }
+                </div>
+            </div>
         </div>
-    </div>
 )
 };
 

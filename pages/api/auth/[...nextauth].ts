@@ -10,15 +10,15 @@ function getGithubCredentials(){
         throw new Error("Missing Github clientId/clientSecret")
     return {clientId, clientSecret}
 }
-/*
+
 function getGoogleredentials(){
-    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-    const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+    const clientId = process.env.GOOGLE_CLIENT_ID
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET
     if (!clientId || !clientSecret)
         throw new Error("Missing Google clientId/clientSecret")
     return {clientId, clientSecret}
 }
-*/
+
 
 
 export const authOptions: NextAuthOptions = {
@@ -29,12 +29,11 @@ export const authOptions: NextAuthOptions = {
       clientId: getGithubCredentials().clientId,
       clientSecret: getGithubCredentials().clientSecret,
     }),
-    /*
+
     GoogleProvider({
         clientId: getGoogleredentials().clientId,
         clientSecret: getGoogleredentials().clientSecret,
       }),
-      */
     // ...add more providers here
   ],
 
