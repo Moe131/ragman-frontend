@@ -35,7 +35,20 @@ OPENAI_API_KEY=YOUR_KEY
 
 > Additionally, if you have multiple OpenAI Organizations, you can set `OPENAI_ORGANIZATION` to specify one.
 
-**4. Run App**
+
+**4. Set Up GitHub and Google OAuth Authentication**
+
+After obtaining the Client ID and Secret for both GitHub and Google, add them to the .env.local file in the root of your project.
+
+```bash
+GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
+GITHUB_CLIENT_SECRET=YOUR_GITHUB_CLIENT_SECRET
+GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+```
+
+**5. Run App**
+
 * run locally
     ```bash
     npm run dev
@@ -47,7 +60,7 @@ OPENAI_API_KEY=YOUR_KEY
     ```
 
 
-**5. Use It**
+**6. Use It**
 
 You should be able to start chatting.
 

@@ -4,8 +4,8 @@ import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 
 function getGithubCredentials(){
-    const clientId = process.env.GITHUB_ID
-    const clientSecret = process.env.GITHUB_SECRET
+    const clientId = process.env.GITHUB_CLIENT_ID
+    const clientSecret = process.env.GITHUB_CLIENT_SECRET
     if (!clientId || !clientSecret)
         throw new Error("Missing Github clientId/clientSecret")
     return {clientId, clientSecret}
