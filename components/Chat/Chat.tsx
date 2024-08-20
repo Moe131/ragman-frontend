@@ -32,12 +32,14 @@ import { ErrorMessageDiv } from './ErrorMessageDiv';
 import { AssistantSelect } from './AssistantSelect';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
 import home from '@/pages/home';
+import { Session } from 'next-auth';
 
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
+  session : Session
 }
 
-export const Chat = memo(({ stopConversationRef }: Props) => {
+export const Chat = memo(({ stopConversationRef, session }: Props) => {
   const { t } = useTranslation('chat');
 
   const {
@@ -98,7 +100,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           position: updatedConversation.messages.length - 1,
           key: apiKey,
           cid: updatedConversation.id,
-          aid: updatedConversation.assistant?.aid ? updatedConversation.assistant?.aid : "-1"
+          aid: updatedConversation.assistant?.aid ? updatedConversation.assistant?.aid : "-1",
+          uid : session.user.uid,
         };
         const endpoint = getEndpoint();
         let body = JSON.stringify(chatBody);

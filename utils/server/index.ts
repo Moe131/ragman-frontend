@@ -27,6 +27,7 @@ export const RagmanBackendStream = async (
   position: number,
   cid: string,
   aid: string,
+  uid: string,
 ) => {
 
   let url = `${RAGMAN_BACKEND_HOST}/chat`;
@@ -40,6 +41,7 @@ export const RagmanBackendStream = async (
       position: position,
       cid: cid,
       aid: aid,
+      uid : uid,
       stream: true,
     }),
   });

@@ -16,6 +16,7 @@ export interface ChatBody {
   key: string;
   cid: string,
   aid: string,
+  uid: number,
 }
 
 export interface Conversation {

@@ -344,7 +344,7 @@ session}: Props) => {
             <Chatbar session={session} />
 
             <div className="flex flex-1">
-              <Chat stopConversationRef={stopConversationRef} />
+              <Chat stopConversationRef={stopConversationRef} session={session}/>
             </div>
             <Promptbar />
           </div>
