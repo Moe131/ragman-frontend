@@ -36,16 +36,31 @@ OPENAI_API_KEY=YOUR_KEY
 > Additionally, if you have multiple OpenAI Organizations, you can set `OPENAI_ORGANIZATION` to specify one.
 
 
-**4. Set Up GitHub and Google OAuth Authentication**
+**4. Configure OAuth and Database Variables**
 
-After obtaining the Client ID and Secret for both GitHub and Google, add them to the .env.local file in the root of your project.
+In the .env.local file created in Step 3, add the following variables for OAuth authentication and database configuration:
 
 ```bash
+# GitHub OAuth Credentials
 GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
 GITHUB_CLIENT_SECRET=YOUR_GITHUB_CLIENT_SECRET
+
+# Google OAuth Credentials
 GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+
+# Required for NextAuth.js to sign and verify authentication tokens
+AUTH_SECRET=YOUR_AUTH_SECRET
+
+# Path to your SQLite database
+DATABASE_PATH=SQLITE_DATABASE_PATH
+
 ```
+
+* Replace YOUR_GITHUB_CLIENT_ID and YOUR_GITHUB_CLIENT_SECRET with your GitHub OAuth credentials.
+* Replace YOUR_GOOGLE_CLIENT_ID and YOUR_GOOGLE_CLIENT_SECRET with your Google OAuth credentials.
+* Set AUTH_SECRET to any secure string of your choice, which will be used to sign and verify authentication tokens.
+* Ensure DATABASE_PATH correctly points to your SQLite database file.
 
 **5. Run App**
 
