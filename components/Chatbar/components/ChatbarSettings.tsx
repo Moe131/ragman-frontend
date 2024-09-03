@@ -21,6 +21,10 @@ export const ChatbarSettings = ({session}:Props) => {
   const { t } = useTranslation('sidebar');
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
 
+  if (isSettingDialogOpen) {
+    window.location.href='/settings';
+  }
+
   const {
     state: {
       apiKey,
