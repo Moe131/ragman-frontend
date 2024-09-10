@@ -1,7 +1,7 @@
 import { IconFolderPlus, IconMistOff, IconPlus } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { getSettings } from '@/utils/app/settings';
 import {
   CloseSidebarButton,
   OpenSidebarButton,
@@ -47,7 +47,13 @@ const Sidebar = <T,>({
   };
 
   const highlightDrop = (e: any) => {
-    e.target.style.background = '#343541';
+    if (getSettings().theme === 'dark') {
+      e.target.style.background = '#343541';
+    }
+    else {
+      e.target.style.background = '#D6D6D9';
+    }
+    
   };
 
   const removeHighlight = (e: any) => {
@@ -57,11 +63,11 @@ const Sidebar = <T,>({
   return isOpen ? (
     <div>
       <div
-        className={`fixed top-0 ${side}-0 z-40 flex h-full w-[260px] flex-none flex-col space-y-2 bg-[#202123] p-2 text-[14px] transition-all sm:relative sm:top-0`}
+        className={`fixed top-0 ${side}-0 z-40 flex h-full w-[260px] flex-none flex-col space-y-2 ${getSettings().theme === 'dark' ? 'bg-[#202123] text-white' : 'bg-[#FAFAFA] text-black'} p-2 text-[14px] transition-all sm:relative sm:top-0`}
       >
-        <div className="flex items-center">
+        <div className={'flex items-center'}>
           <button
-            className="text-sidebar flex w-[190px] flex-shrink-0 cursor-pointer select-none items-center gap-3 rounded-md border border-white/20 p-3 text-white transition-colors duration-200 hover:bg-gray-500/10"
+            className="text-sidebar flex w-[190px] flex-shrink-0 cursor-pointer select-none items-center gap-3 rounded-md border border-white/20 p-3 transition-colors duration-200 hover:bg-gray-500/10"
             onClick={() => {
               handleCreateItem();
               handleSearchTerm('');
@@ -72,7 +78,7 @@ const Sidebar = <T,>({
           </button>
 
           <button
-            className="ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-white/20 p-3 text-sm text-white transition-colors duration-200 hover:bg-gray-500/10"
+            className={'ml-2 flex flex-shrink-0 cursor-pointer items-center gap-3 rounded-md border border-white/20 p-3 text-sm transition-colors duration-200 hover:bg-gray-500/10'}
             onClick={handleCreateFolder}
           >
             <IconFolderPlus size={16} />
