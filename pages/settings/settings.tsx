@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+
 
 const NavbarButton = ({  // button in the navbar, used to navigate through the different sections of the Settings page
     clickHandler,
     formSection,
 }: {
-    clickHandler: (arg: string) => void,  // TODO: accept function
+    clickHandler: (arg: string) => void,
     formSection: FormSectionType,
 }) => (
     <button type="button" className="rounded-md p-3 text-white duration-300 hover:bg-gray-500/10" onClick={() =>     clickHandler(formSection.id)}>
@@ -14,7 +14,7 @@ const NavbarButton = ({  // button in the navbar, used to navigate through the d
 
 )
 
-const TextBoxFormRow = ({  // text box with label
+const TextBoxFormRow = ({  // text box with label above it
     formSection, 
     placeholder,
     required,
@@ -41,14 +41,14 @@ const TextBoxFormRow = ({  // text box with label
     </div>
 )
 
-const Button = ({  // button at the bottom of each individual section to be clicked when users want to update a setting in a specific section
+const Button = ({  // button that allows customization for onClick event, buttonType, and display text
     buttonType,
     placeholder,
     clickHandler,
 }: {
     buttonType: 'button' | 'submit' | 'reset' | undefined,
     placeholder: string,
-    clickHandler: () => void,  // TODO: accept function
+    clickHandler: () => void,
 }) => (
         <button type={buttonType} onClick={clickHandler} className="w-[190px] rounded-md border border-white/20 p-3 text-white duration-300 hover:bg-gray-500/10">
             {placeholder}
@@ -73,12 +73,12 @@ const Toggle = ({  // toggle button, slides left to right to denote 'yes/no' or 
     </div>
 )
 
-interface DropdownOption {
+interface DropdownOption {  // helper for "DropdownBox": accepts a variable number of strings to be listed in the dropdown box
     value: string,
     label: string,
 };
 
-const DropdownBox = ({  // TODO: figure out how to take and display a variable number of dropdown options
+const DropdownBox = ({ // dropdown button that shows a list of strings when clicked
     formId,
     labelText,
     dropdownOptions,
@@ -87,22 +87,11 @@ const DropdownBox = ({  // TODO: figure out how to take and display a variable n
     labelText: string,
     dropdownOptions: DropdownOption[],
 }) => (
-    // <div className="flex flex-direction-col w-fit">
-    //     <label htmlFor={formId} className="block text-sm font-medium text-white w-[200px] mr-[25px] flex items-center">
-    //         {labelText}
-    //     </label>
-    //     <select name="languages" id="languages" className="text-white w-[150px] bg-[#343541] p-2 border border-white/20 rounded-lg duration-300 hover:bg-gray-500/10 outline-none">
-    //     {   dropdownOptions.map((dropdownOption) => 
-    //             <option value={dropdownOption.value}>{dropdownOption.label}</option>
-    //         )
-    //     }
-    //     </select>
-    // </div>
     <div className="flex flex-direction-col justify-between">
         <label htmlFor={formId} className="block text-sm font-medium text-white w-[200px] mr-[25px] flex items-center">
             {labelText}
         </label>
-        <select name={`${formId}-${labelText}`} className="text-sm font-medium text-white w-[150px] bg-[#343541] p-2 border border-white/20 rounded-lg duration-300 hover:bg-gray-500/10 outline-none">
+        <select name={`${formId}-${labelText}`} className="text-sm font-medium text-white w-[150px] bg-[#343541] p-2 border border-white/20 rounded-lg duration-300 hover:bg-gray-500/10 outline-none cursor-grab">
             {   dropdownOptions.map((dropdownOption) => 
                     <option value={dropdownOption.value}>{dropdownOption.label}</option>
                 )
@@ -111,19 +100,17 @@ const DropdownBox = ({  // TODO: figure out how to take and display a variable n
     </div>
 )
 
-function scrollToElement(elementId: any) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-    }
+const scrollToElement = function (elementId: any) {  // scroll to the target element in the page
+    const element = document.getElementById(elementId)
+    element?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest",});
 }
 
-interface FormSectionType {
+interface FormSectionType { // helper for "FORM_SECTIONS": an ID structure used to identify/name a Settings page section
     id: string,
     label: string,
 }
 
-const FORM_SECTIONS = {
+const FORM_SECTIONS = {  // map of the different forms/sections of the Settings page
     ACCOUNT_FORM: {
         id: 'account-form',
         label: 'Account',
@@ -143,26 +130,30 @@ const FORM_SECTIONS = {
 }
 
 const Settings = () => {
-    const getNewMap = (target: string) => 
+    const getNewMap = (target: string) =>  // creates a map associating each nav bar button to a form
         new Map<string, string>(
             Object.values(FORM_SECTIONS).map(section => [section.id, section.id === target ? 'bg-gray-500/10' : '']));
     const [flashClass, setFlashClass] = useState<Map<string, string>>(getNewMap(''));
-    const handleNavButtonClick = (formSectionId: string) => {
+    const FormGlow = (formSectionId: string) => {  // when a nav button is clicked, the associated form lights up for a sec
         setFlashClass(getNewMap(formSectionId));
         setTimeout(() => setFlashClass(getNewMap('')), 1000);
     }
-    const updateAccountSettings = () => {
+    const updateAccountSettings = () => {  // update changes made to the Account form
         console.log('TODO: update account settings');
     };
-    const updateAccessibilitySettings = () => {
+    const updateAccessibilitySettings = () => {  // update changes made to the Accessibility form
         console.log('TODO: update accessibility settings');
     };
-    const handleDeleteAccount = () => {
+    const handleDeleteAccount = () => {  // deletes any data associated with the user on the website
         console.log('TODO: delete account');
     };
+    const handleNavButtonClick = (formSectionId: string) => {  // perform these two functions when a nav bar button is clicked
+        FormGlow(formSectionId);
+        scrollToElement(formSectionId);
+    }
 
     return (
-        <div className="bg-[#343541] size-full flex flex-col">
+        <div className="bg-[#343541] size-full flex flex-col justify-center">
             <p className="text-white text-5xl mt-12 ml-12 mb-4">
                 Settings
             </p>
@@ -189,11 +180,11 @@ const Settings = () => {
                     id={FORM_SECTIONS.ACCESSIBLITY_FORM.id} 
                     className={`p-2 rounded-lg mb-10 w-[650px] flex flex-col duration-300 space-y-2 ${flashClass.get(FORM_SECTIONS.ACCESSIBLITY_FORM.id)}`}
                 >
-                    <Toggle formId="inverted-colors" placeholder="Dark Mode"/>
-                    <Toggle formId="inverted-colors" placeholder="Large Mouse Cursor"/>
+                    <Toggle formId="inverted-colors" placeholder="Dark Mode" />
+                    <Toggle formId="inverted-colors" placeholder="Large Mouse Cursor" />
                     <DropdownBox 
                         formId={FORM_SECTIONS.ACCESSIBLITY_FORM.id} 
-                        labelText="Display Size" 
+                        labelText="Display size" 
                         dropdownOptions={
                             [
                                 {label: 'Small', value: 'small'},
@@ -203,17 +194,19 @@ const Settings = () => {
                         }
                     />
 
-                    <div className="flex flex-direction-col justify-between">
-                    <label htmlFor="language" className="block text-sm font-medium text-white w-[200px] mr-[25px] flex items-center">
-                            Select language
-                        </label>
-                        <select name="languages" id="languages" className="text-sm font-medium text-white w-[150px] bg-[#343541] p-2 border border-white/20 rounded-lg duration-300 hover:bg-gray-500/10 outline-none">
-                            <option value="english">English</option>
-                            <option value="spanish">Spanish</option>
-                            <option value="french">French</option>
-                            <option value="arabic">Arabic</option>
-                        </select>
-                    </div>
+                    <DropdownBox 
+                        formId={FORM_SECTIONS.ACCESSIBLITY_FORM.id} 
+                        labelText="Select language"
+                        dropdownOptions={
+                            [
+                                {label: 'English', value: 'english'},
+                                {label: 'Spanish', value: 'spanish'},
+                                {label: 'French', value: 'french'},
+                                {label: 'Arabic', value: 'arabic'},
+                            ]
+                        }
+                    />
+
                     <Button buttonType="submit" placeholder="Update" clickHandler={updateAccessibilitySettings} />
                 </form>
 
@@ -245,13 +238,12 @@ const Settings = () => {
                     id={FORM_SECTIONS.ADDITIONAL_SETTINGS_FORM.id} 
                     className={`p-2 rounded-lg mb-10 w-[650px] flex flex-col duration-300 space-y-2 ${flashClass.get(FORM_SECTIONS.ADDITIONAL_SETTINGS_FORM.id)}`}
                 >
-                    <button type="button" className="w-[190px] rounded-md border border-white/20 p-3 text-red-500 duration-300 hover:bg-red-900 hover:text-white" onClick={handleDeleteAccount}>  {/* TODO: write function to delete user account */}
+                    <button type="button" className="w-[190px] rounded-md border border-white/20 p-3 text-red-500 duration-300 hover:bg-[#FB4B54] hover:text-white" onClick={handleDeleteAccount}>  {/* TODO: write function to delete user account */}
                             Delete Account
                         </button>
                 </form>
             </div>
         </div>
     );
-}
-
+};
 export default Settings;
