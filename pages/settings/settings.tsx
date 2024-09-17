@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 
 const NavbarButton = ({  // button in the navbar, used to navigate through the different sections of the Settings page
@@ -92,8 +92,8 @@ const DropdownBox = ({ // dropdown button that shows a list of strings when clic
             {labelText}
         </label>
         <select name={`${formId}-${labelText}`} className="text-sm font-medium text-white w-[150px] bg-[#343541] p-2 border border-white/20 rounded-lg duration-300 hover:bg-gray-500/10 outline-none cursor-grab">
-            {   dropdownOptions.map((dropdownOption) => 
-                    <option value={dropdownOption.value}>{dropdownOption.label}</option>
+            {   dropdownOptions.map((dropdownOption, index) => 
+                    <option key={index} value={dropdownOption.value}>{dropdownOption.label}</option>
                 )
             }
         </select>
@@ -153,7 +153,7 @@ const Settings = () => {
     }
 
     return (
-        <div className="bg-[#343541] size-full flex flex-col justify-center">
+        <div id="body" className="bg-[#343541] size-full flex flex-col justify-center">
             <p className="text-white text-5xl mt-12 ml-12 mb-4">
                 Settings
             </p>
@@ -238,7 +238,7 @@ const Settings = () => {
                     id={FORM_SECTIONS.ADDITIONAL_SETTINGS_FORM.id} 
                     className={`p-2 rounded-lg mb-10 w-[650px] flex flex-col duration-300 space-y-2 ${flashClass.get(FORM_SECTIONS.ADDITIONAL_SETTINGS_FORM.id)}`}
                 >
-                    <button type="button" className="w-[190px] rounded-md border border-white/20 p-3 text-red-500 duration-300 hover:bg-[#FB4B54] hover:text-white" onClick={handleDeleteAccount}>  {/* TODO: write function to delete user account */}
+                    <button type="button" className="w-[190px] rounded-md border border-white/20 p-3 text-red-500 duration-300 hover:bg-[#B01307] hover:text-white" onClick={handleDeleteAccount}>  {/* TODO: write function to delete user account */}
                             Delete Account
                         </button>
                 </form>
